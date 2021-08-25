@@ -11,3 +11,5 @@ class Books(db.Model):
     def __init__(self, author, price):
         self.author = author
         self.price = price
+
+db.create_all()
