@@ -7,3 +7,5 @@ class Stores(db.Model):
     def __init__(self, adress):
         self.adress = adress
 
+
+db.create_all()
