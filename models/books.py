@@ -13,7 +13,7 @@ class BookModel(db.Model):
         self.price = price
 
     def json(self):
-            return {'author': self.author, 'price': self.price}
+        return {'author': self.author, 'price': self.price}
     
     @classmethod
     def find_by_name(cls, author):
