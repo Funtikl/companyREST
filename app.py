@@ -6,6 +6,7 @@ from resources.salesman import SalesmanRes
 from models.salesman import SalesmanModel
 from models.books import BookModel
 from resources.books import BooksRes
+from resources.stores import StoresRes
 
 # Testing github again
 
@@ -28,6 +29,7 @@ api = Api(app)
 
 api.add_resource(SalesmanRes, '/salesman/<string:name>')
 api.add_resource(BooksRes, '/books/<string:name>')
+api.add_resource(StoresRes, '/stores/<string:name>')
 if __name__ == '__main__':
     db.init_app(app)
     app.run(port=5000, debug=True)
