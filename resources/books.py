@@ -10,7 +10,7 @@ class BooksRes(Resource):
         book = BooksModel.find_by_name(name)
         if book:
             return book.json()
-        return {'message': 'Book not found'}    
+        return {'message': 'Book not found'}, 404    
     
     def post(self, name):
         if BooksModel.find_by_name(name):
@@ -21,8 +21,8 @@ class BooksRes(Resource):
 
         try:
             book.save_to_db()
-        except:
-            return {"message":"Error"}
+        except Exception as ex:
+            return {"message": f"Error: {str(ex)}"}
         return book.json(), 201
 
     def delete(self, name):
@@ -30,7 +30,7 @@ class BooksRes(Resource):
         if book:
             book.delete_from_db()
             return {"message":"Book {} deleted".format(name)}
-        return {"message":"Book {} not found".format(name)}
+        return {"message":"Book {} not found".format(name)}, 404
 
     def put(self, name):
         data = BooksRes.parser.parse_args()

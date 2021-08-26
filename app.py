@@ -4,6 +4,7 @@ from db import db
 from flask_sqlalchemy import SQLAlchemy
 from resources.salesman import SalesmanRes
 from models.salesman import SalesmanModel
+from models.books import BooksModel
 from resources.books import BooksRes
 
 # Testing github again
