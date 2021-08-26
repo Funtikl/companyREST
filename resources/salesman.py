@@ -10,7 +10,7 @@ class SalesmanRes(Resource):
         salesman = SalesmanModel.find_by_name(name)
         if salesman:
             return salesman.json()
-        return {'message': 'Salesman not found'}    
+        return {'message': 'Salesman not found'}, 404    
     
     def post(self, name):
         if SalesmanModel.find_by_name(name):
@@ -31,7 +31,7 @@ class SalesmanRes(Resource):
         if salesman:
             salesman.delete_from_db()
             return {"message":"Salesman {} deleted".format(name)}
-        return {"message":"Salesman {} not found".format(name)}
+        return {"message":"Salesman {} not found".format(name)},404
 
     def put(self, name):
         data = SalesmanRes.parser.parse_args()
@@ -44,4 +44,3 @@ class SalesmanRes(Resource):
 
         salesman.save_to_db()
         return salesman.json()
-        

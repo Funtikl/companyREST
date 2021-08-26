@@ -1,6 +1,6 @@
 from db import db
 
-class BooksModel(db.Model):
+class BookModel(db.Model):
     id = db.Column('id', db.Integer, primary_key = True)
     author = db.Column('author', db.String(100))
     price = db.Column('price', db.Integer)
