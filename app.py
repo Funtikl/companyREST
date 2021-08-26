@@ -4,6 +4,7 @@ from db import db
 from flask_sqlalchemy import SQLAlchemy
 from resources.salesman import SalesmanRes
 from models.salesman import SalesmanModel
+from resources.books import BooksRes
 
 # Testing github again
 
@@ -25,7 +26,7 @@ def create_tables():
 api = Api(app)
 
 api.add_resource(SalesmanRes, '/salesman/<string:name>')
-
+api.add_resource(BooksRes, '/books/<string:name>')
 if __name__ == '__main__':
     db.init_app(app)
     app.run(port=5000, debug=True)

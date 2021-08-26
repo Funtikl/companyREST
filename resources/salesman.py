@@ -5,6 +5,7 @@ class SalesmanRes(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('name', required=True)
     parser.add_argument('email',  required=True)
+    
     def get(self, name):
         salesman = SalesmanModel.find_by_name(name)
         if salesman:
@@ -24,3 +25,23 @@ class SalesmanRes(Resource):
         except:
             return {"message":"Error"}
         return salesman.json(), 201
+
+    def delete(self, name):
+        salesman = SalesmanModel.find_by_name(name)
+        if salesman:
+            salesman.delete_from_db()
+            return {"message":"Salesman {} deleted".format(name)}
+        return {"message":"Salesman {} not found".format(name)}
+
+    def put(self, name):
+        data = SalesmanRes.parser.parse_args()
+        salesman = SalesmanModel.find_by_name(name)
+
+        if salesman:
+            salesman.email = data["email"]
+        else:
+           salesman = SalesmanModel(**data) 
+
+        salesman.save_to_db()
+        return salesman.json()
+        
