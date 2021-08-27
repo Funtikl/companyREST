@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.salesman import SalesmanModel
 
-class SalesmanRes(Resource):
+class SalesmanResource(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('name', required=True)
     parser.add_argument('email',  required=True)
@@ -16,7 +16,7 @@ class SalesmanRes(Resource):
         if SalesmanModel.find_by_name(name):
             return {'message':"A salesman {} already exists".format(name)}, 400
 
-        data = SalesmanRes.parser.parse_args()
+        data = SalesmanResource.parser.parse_args()
 
         salesman = SalesmanModel(**data)
 
@@ -34,7 +34,7 @@ class SalesmanRes(Resource):
         return {"message":"Salesman {} not found".format(name)},404
 
     def put(self, name):
-        data = SalesmanRes.parser.parse_args()
+        data = SalesmanResource.parser.parse_args()
         salesman = SalesmanModel.find_by_name(name)
 
         if salesman:

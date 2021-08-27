@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.stores import StoreModel
 
-class StoresRes(Resource):
+class StoresResource(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('name', required=True) 
     parser.add_argument('address', required=True)
@@ -16,7 +16,7 @@ class StoresRes(Resource):
         if StoreModel.find_by_name(name):
             return {'message':"A store {} already exists".format(name)}, 400
 
-        data = StoresRes.parser.parse_args()
+        data = StoresResource.parser.parse_args()
         print(data)
 
         store = StoreModel(**data)
@@ -34,7 +34,7 @@ class StoresRes(Resource):
         return {"message":"Address {} not found".format(name)}, 404
 
     def put(self, name):
-        data =  StoresRes.parser.parse_args()
+        data =  StoresResource.parser.parse_args()
         store = StoreModel.find_by_name(name)
 
         if store:
