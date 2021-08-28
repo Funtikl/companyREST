@@ -22,12 +22,12 @@ def create_tables():
     db.create_all()
 
 
-#home page
+#routes
 @app.route('/', methods=('GET','POST'))
 def home():
     return render_template('index.html')
 
-#books route
+
 @app.route('/books', methods=('GET','POST'))
 def book():
     if request.method == "POST":
@@ -35,7 +35,22 @@ def book():
         print(request.form.get('books'))
     return render_template('books.html')
 
+@app.route('/salesman', methods=('GET','POST'))
+def salesman():
+    if request.method == "POST":
+        print(request.form.get('salesman'))
+        return redirect('/salesman/{}'.format(request.form.get('salesman')))
+        
+    return render_template('salesman.html')
 
+
+@app.route('/stores', methods=('GET','POST'))
+def stores():
+    if request.method == "POST":
+        print(request.form.get('store'))
+        return redirect('/stores/{}'.format(request.form.get('address')))
+        
+    return render_template('stores.html')
 api = Api(app)
 
 api.add_resource(SalesmanResource, '/salesman/<string:name>')

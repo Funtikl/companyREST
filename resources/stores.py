@@ -23,14 +23,14 @@ class StoresResource(Resource):
         try:
             store.save_to_db()
         except Exception as ex:
-            return {"message": f"Error: {str(ex)}"}, 404
+            return {"message": f"Error: {str(ex)}"}, 500
         return store.json(), 201
 
     def delete(self, name):
         store = StoreModel.find_by_name(name)
         if store:
             store.delete_from_db()
-            return {"message":"Address {} deleted".format(name)}
+            return {"message":"Address {} deleted".format(name)}, 200
         return {"message":"Address {} not found".format(name)}, 404
 
     def put(self, name):
@@ -43,5 +43,5 @@ class StoresResource(Resource):
             store = StoreModel(**data) 
 
         address.save_to_db()
-        return address.json()
+        return address.json(), 201
         

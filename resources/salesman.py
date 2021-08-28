@@ -22,15 +22,15 @@ class SalesmanResource(Resource):
 
         try:
             salesman.save_to_db()
-        except:
-            return {"message":"Error"}
+        except Exception as ex:
+            return {"message": f"Error: {str(ex)}"}, 500
         return salesman.json(), 201
 
     def delete(self, name):
         salesman = SalesmanModel.find_by_name(name)
         if salesman:
             salesman.delete_from_db()
-            return {"message":"Salesman {} deleted".format(name)}
+            return {"message":"Salesman {} deleted".format(name)}, 200
         return {"message":"Salesman {} not found".format(name)},404
 
     def put(self, name):
@@ -43,4 +43,4 @@ class SalesmanResource(Resource):
            salesman = SalesmanModel(**data) 
 
         salesman.save_to_db()
-        return salesman.json()
+        return salesman.json(),201

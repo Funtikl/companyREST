@@ -31,7 +31,7 @@ class BooksResource(Resource):
         book = BookModel.find_by_name(name)
         if book:
             book.delete_from_db()
-            return {"message":"Book {} deleted".format(name)}
+            return {"message":"Book {} deleted".format(name)}, 200
         return {"message":"Book {} not found".format(name)}, 404
 
     def put(self, name):
@@ -44,5 +44,5 @@ class BooksResource(Resource):
             book = BookModel(**data) 
 
         book.save_to_db()
-        return book.json()
+        return book.json(), 201
         
